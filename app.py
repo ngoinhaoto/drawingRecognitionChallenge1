@@ -25,6 +25,12 @@ def index():
 
 
 
+# load the class.txt file
+
+with open('./model/class_names.txt', 'r') as file:
+    class_labels = file.read().splitlines()
+
+print(class_labels)
 @app.route('/recognize', methods=['POST'])
 def recognize():
 
@@ -48,10 +54,10 @@ def recognize():
 
         image_prediction = (255 - image_prediction.astype('float')) / 255
         prediction = np.argmax(model.predict(np.array([image_prediction])), axis=-1)
-
+        predicted_class = class_labels[prediction[0]]
         #running predict here
         return jsonify({
-            'prediction': str(prediction[0]),
+            'prediction': str(predicted_class),
             'status':True
         })
 
