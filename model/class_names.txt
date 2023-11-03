@@ -1,0 +1,4 @@
+house
+eye
+fish
+cup
